@@ -68,8 +68,8 @@ public class TorgoUserInputPanel implements TorgoTextConsole {
 
     private class ZoomableMixin extends ZoomableComponent {
 
-        ZoomableMixin(JComponent component, JComponent popupMenuContainer) {
-            super(component, popupMenuContainer);
+        ZoomableMixin(JComponent component) {
+            super(component);
         }
 
         @Override
@@ -109,10 +109,10 @@ public class TorgoUserInputPanel implements TorgoTextConsole {
     /**
      * Constructor.
      *
-     * @param controller
-     * @param name
-     * @param editable
-     * @param syntax
+     * @param controller the controller.
+     * @param name the nae.
+     * @param editable if it is editable.
+     * @param syntax the syntax.
      */
     @SuppressWarnings("OverridableMethodCallInConstructor")
     public TorgoUserInputPanel(Controller controller, String name, boolean editable, String syntax) {
@@ -144,7 +144,7 @@ public class TorgoUserInputPanel implements TorgoTextConsole {
         Font font = new Font(Font.MONOSPACED, Font.PLAIN, (int) prefs.getFloat("font-size", DEFAULT_FONT_SIZE));
         inputTextArea.setFont(font);
         outputTextArea.setFont(font);
-        zoom = new ZoomableMixin(scrollPane, inputTextArea);
+        zoom = new ZoomableMixin(scrollPane);
 
         inputTab.add(scrollPane, BorderLayout.CENTER);
 
@@ -199,6 +199,26 @@ public class TorgoUserInputPanel implements TorgoTextConsole {
         });
     }
 
+    public int getInputTextAreaSize() {
+        return inputTextArea.getFont().getSize();
+    }
+
+    public RSyntaxTextArea getInputTextArea() {
+        return inputTextArea;
+    }
+
+    public void zoomInTest() {
+        zoom.zoomIn();
+    }
+
+    public void zoomOutTest() {
+        zoom.zoomOut();
+    }
+
+    public void zoomResetTest() {
+        zoom.zoomReset();
+    }
+
     /**
      * Reset the control to initial state.
      */
@@ -220,7 +240,7 @@ public class TorgoUserInputPanel implements TorgoTextConsole {
     /**
      * Append text to the output text area.
      *
-     * @param what
+     * @param what text to append to the output text area.
      */
     @Override
     public void appendToOutputTextArea(String what) {
@@ -231,7 +251,7 @@ public class TorgoUserInputPanel implements TorgoTextConsole {
     /**
      * Get the source to interpret.
      *
-     * @return
+     * @return the source to interpret.
      */
     @Override
     public String getSource() {
@@ -241,7 +261,7 @@ public class TorgoUserInputPanel implements TorgoTextConsole {
     /**
      * Set the source to interpret.
      *
-     * @param source
+     * @param source the source to interpret.
      */
     @Override
     public void setSource(String source) {
@@ -252,7 +272,7 @@ public class TorgoUserInputPanel implements TorgoTextConsole {
     /**
      * Append a string to the source.
      *
-     * @param source
+     * @param source text to append to the source to interpret.
      */
     @Override
     public void appendToSource(String source) {
@@ -264,7 +284,7 @@ public class TorgoUserInputPanel implements TorgoTextConsole {
     /**
      * Insert a string into the source at the cursor.
      *
-     * @param source
+     * @param source text to insert into the source to interpret.
      */
     @Override
     public void insertIntoSource(String source) {
@@ -304,7 +324,7 @@ public class TorgoUserInputPanel implements TorgoTextConsole {
     /**
      * To to a position in the source.
      *
-     * @param position
+     * @param position position to move to.
      */
     @Override
     public void gotoPosition(int position) {
@@ -319,9 +339,9 @@ public class TorgoUserInputPanel implements TorgoTextConsole {
      * Highlight a section of the source. Check for set breakpoints from the
      * RTextScrollPane object and pause there.
      *
-     * @param line
-     * @param startChar
-     * @param endChar
+     * @param line the line.
+     * @param startChar the start line position.
+     * @param endChar the end line position.
      */
     @Override
     public void highlight(int line, int startChar, int endChar) {
@@ -359,9 +379,9 @@ public class TorgoUserInputPanel implements TorgoTextConsole {
     }
 
     /**
-     * Get the swing component of the object.
+     * Get the swing component(s) of the object.
      *
-     * @return
+     * @return the swing component(s) of the object.
      */
     @Override
     public ArrayList<ImmutablePair<String, Component>> getTorgoComponents() {

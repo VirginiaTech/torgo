@@ -58,7 +58,7 @@ public class StackViewTest {
     private final static Logger LOGGER;
 
     static {
-        Logging.initLogging(TorgoInfo.INSTANCE);
+        Logging.initLogging(TorgoToolkit.getBuildInfo());
         LOGGER = Logger.getLogger(StackViewTest.class.getName());
     }
 
@@ -166,6 +166,7 @@ public class StackViewTest {
                                             robot.delay(10);
                                             robot.mouseRelease(InputEvent.BUTTON1_MASK);
                                             robot.mouseMove(locationOnScreen.x + 100, locationOnScreen.y + 60);
+                                            robot.mouseMove(locationOnScreen.x - 10000, locationOnScreen.y - 10000);
                                         } catch (AWTException ex) {
                                             Logger.getLogger(StackViewTest.class.getName()).log(Level.SEVERE, null, ex);
                                         }

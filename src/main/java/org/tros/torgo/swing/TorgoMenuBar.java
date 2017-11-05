@@ -18,7 +18,6 @@ package org.tros.torgo.swing;
 import org.tros.torgo.Controller;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
-import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -68,8 +67,8 @@ public class TorgoMenuBar extends JMenuBar implements ControllerListener {
     /**
      * Constructor.
      *
-     * @param parent
-     * @param controller
+     * @param parent the parent.
+     * @param controller the controller.
      */
     @SuppressWarnings("OverridableMethodCallInConstructor")
     public TorgoMenuBar(Component parent, final Controller controller) {
@@ -225,7 +224,7 @@ public class TorgoMenuBar extends JMenuBar implements ControllerListener {
     /**
      * Initializer.
      *
-     * @return
+     * @return a new menu.
      */
     private JMenu setupFileMenu() throws IOException {
         LogConsole.CONSOLE.setVisible(false);
@@ -258,13 +257,13 @@ public class TorgoMenuBar extends JMenuBar implements ControllerListener {
             LogConsole.CONSOLE.setVisible(true);
         });
 
-        fileNew.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK + InputEvent.SHIFT_MASK));
-        fileOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
-        fileClose.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, InputEvent.CTRL_MASK));
-        fileSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
-        fileSaveAs.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_MASK));
-        fileQuit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_MASK));
-        logConsole.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, InputEvent.CTRL_MASK));
+        fileNew.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK + ActionEvent.SHIFT_MASK));
+        fileOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
+        fileClose.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, ActionEvent.CTRL_MASK));
+        fileSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
+        fileSaveAs.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.CTRL_MASK));
+        fileQuit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.CTRL_MASK));
+        logConsole.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, ActionEvent.CTRL_MASK));
 
         fileNew.setMnemonic('N');
         fileOpen.setMnemonic('O');

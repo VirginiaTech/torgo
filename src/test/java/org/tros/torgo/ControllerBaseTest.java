@@ -15,6 +15,7 @@
  */
 package org.tros.torgo;
 
+import java.io.File;
 import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -34,7 +35,7 @@ public class ControllerBaseTest {
     private final static Logger LOGGER;
 
     static {
-        Logging.initLogging(TorgoInfo.INSTANCE);
+        Logging.initLogging(TorgoToolkit.getBuildInfo());
         LOGGER = Logger.getLogger(ControllerBaseTest.class.getName());
     }
 
@@ -67,5 +68,27 @@ public class ControllerBaseTest {
         assertNotNull(base.getFilter());
         assertNull(base.getFile());
     }
-   
+    
+    @Test
+    public void testPrintCanvas() {
+        DynamicLogoController controller = new DynamicLogoController();
+        ControllerBase base = (ControllerBase) controller;
+        base.printCanvas();
+    }
+    
+    @Test
+    public void testGetWindowName() {
+        DynamicLogoController controller = new DynamicLogoController();
+        ControllerBase base = (ControllerBase) controller;
+        base.runHelper();
+        String nametest = base.getWindowName();
+        assertNotNull(nametest);
+    }
+    
+    @Test
+    public void testOpenFile() {
+        DynamicLogoController controller = new DynamicLogoController();
+        ControllerBase base = (ControllerBase) controller;
+        
+    }
 }

@@ -58,6 +58,7 @@ import org.tros.torgo.swing.Localization;
 import org.tros.torgo.swing.TorgoMenuBar;
 import org.tros.utils.swing.NamedWindow;
 import org.tros.utils.AutoResetEvent;
+import org.tros.utils.CoverageIgnore;
 import org.tros.utils.ImageUtils;
 import org.tros.utils.PathUtils;
 
@@ -97,7 +98,7 @@ public abstract class ControllerBase implements Controller {
     /**
      * Add a listener.
      *
-     * @param listener
+     * @param listener the listener to add.
      */
     @Override
     public void addInterpreterListener(InterpreterListener listener) {
@@ -107,7 +108,7 @@ public abstract class ControllerBase implements Controller {
     /**
      * Remove a listener.
      *
-     * @param listener
+     * @param listener the listener to remove.
      */
     @Override
     public void removeInterpreterListener(InterpreterListener listener) {
@@ -117,7 +118,7 @@ public abstract class ControllerBase implements Controller {
     /**
      * Add a listener.
      *
-     * @param listener
+     * @param listener the listener to add.
      */
     @Override
     public void addControllerListener(ControllerListener listener) {
@@ -127,7 +128,7 @@ public abstract class ControllerBase implements Controller {
     /**
      * Remove a listener.
      *
-     * @param listener
+     * @param listener the listener to remove.
      */
     @Override
     public void removeControllerListener(ControllerListener listener) {
@@ -137,8 +138,8 @@ public abstract class ControllerBase implements Controller {
     /**
      * Get the console component for user I/O.
      *
-     * @param app
-     * @return
+     * @param app the the application.
+     * @return the console component for user I/O.
      */
     protected abstract TorgoTextConsole createConsole(Controller app);
 
@@ -146,16 +147,16 @@ public abstract class ControllerBase implements Controller {
      * Get a canvas for drawing to the screen. This can be null. If this is
      * null, the canvas portion of the window will not be loaded.
      *
-     * @param console
-     * @return
+     * @param console the console component for user I/O.
+     * @return a screen.
      */
     protected abstract TorgoScreen createCanvas(TorgoTextConsole console);
 
     /**
      * Create an interpreter thread for the desired language.
      *
-     * @param source
-     * @return
+     * @param source the source to interpret.
+     * @return a thread for interpreting source.
      */
     protected abstract InterpreterThread createInterpreterThread(String source);
 
@@ -167,8 +168,8 @@ public abstract class ControllerBase implements Controller {
         /**
          * Constructor.
          *
-         * @param title
-         * @param panel
+         * @param title the title of the window.
+         * @param panel the component that goes in the dock.
          */
         public TorgoSingleDockable(String title, final Component panel) {
             super(title);
@@ -297,13 +298,13 @@ public abstract class ControllerBase implements Controller {
              * We only care if the window is closing so we can kill the
              * interpreter thread and save the layout.
              *
-             * @param e
+             * @param e the window closing event.
              */
             @Override
             public void windowClosing(WindowEvent e) {
                 stopInterpreter();
                 try {
-                    String layoutFile = PathUtils.getApplicationConfigDirectory(TorgoInfo.INSTANCE) + java.io.File.separatorChar + getLang() + "-layout.xml";
+                    String layoutFile = PathUtils.getApplicationConfigDirectory(TorgoToolkit.getBuildInfo()) + java.io.File.separatorChar + getLang() + "-layout.xml";
                     dockControl.writeXML(new java.io.File(layoutFile));
                 } catch (IOException ex) {
                     org.tros.utils.logging.Logging.getLogFactory().getLogger(ControllerBase.class).warn(null, ex);
@@ -336,7 +337,7 @@ public abstract class ControllerBase implements Controller {
      * Create a tool bar for the application. This can return null. If null is
      * returned, then there is no tool bar added.
      *
-     * @return
+     * @return a new JToolBar
      */
     protected abstract JToolBar createToolBar();
 
@@ -344,7 +345,7 @@ public abstract class ControllerBase implements Controller {
      * Create a menu bar for the application. This can return null. If null is
      * returned, then there is no menu bar added.
      *
-     * @return
+     * @return a new JMenuBar
      */
     protected abstract JMenuBar createMenuBar();
 
@@ -385,6 +386,7 @@ public abstract class ControllerBase implements Controller {
     /**
      * Helper method called during run().
      */
+    @CoverageIgnore
     protected void runHelper() {
     }
 
@@ -402,7 +404,7 @@ public abstract class ControllerBase implements Controller {
     /**
      * Get the current open file.
      *
-     * @return
+     * @return the file that was opened.
      */
     @Override
     public File getFile() {
@@ -438,7 +440,7 @@ public abstract class ControllerBase implements Controller {
     /**
      * Open a file based on URL.
      *
-     * @param file
+     * @param file the file to open.
      */
     @Override
     public void openFile(URL file) {
@@ -461,6 +463,7 @@ public abstract class ControllerBase implements Controller {
     /**
      * Open a file.
      */
+    @CoverageIgnore
     @Override
     public void openFile() {
         JFileChooser chooser = new JFileChooser();
@@ -479,6 +482,7 @@ public abstract class ControllerBase implements Controller {
     /**
      * Save the script as a new file.
      */
+    @CoverageIgnore
     @Override
     public void saveFileAs() {
         JFileChooser chooser = new JFileChooser();
@@ -503,6 +507,7 @@ public abstract class ControllerBase implements Controller {
     /**
      * Save the script.
      */
+    @CoverageIgnore
     @Override
     public void saveFile() {
         if (filename == null) {
@@ -708,7 +713,7 @@ public abstract class ControllerBase implements Controller {
     /**
      * Insert a command into the input pane.
      *
-     * @param command
+     * @param command a piece of interpreter source to insert.
      */
     @Override
     public void insertCommand(String command) {
@@ -718,7 +723,7 @@ public abstract class ControllerBase implements Controller {
     /**
      * Set the source of the input pane.
      *
-     * @param src
+     * @param src the source to interpret.
      */
     @Override
     public void setSource(String src) {
@@ -734,7 +739,7 @@ public abstract class ControllerBase implements Controller {
      * Return the current GUI window. This is made available for setting parents
      * for dialog windows.
      *
-     * @return
+     * @return the current GUI window.
      */
     protected final JFrame getWindow() {
         return this.window;
